@@ -138,7 +138,7 @@
             <h3>What this tool does:</h3>
             <ul>
                 <li>Replaces em dashes (—) with regular dashes (-)</li>
-                <li>Adds spaces around dashes when there are none</li>
+                <li>Adds spaces around em dashes when converting them to regular dashes</li>
                 <li>Preserves existing spacing when already present</li>
             </ul>
         </div>
@@ -170,16 +170,21 @@
         }
         
         function processText(text) {
-            // Replace em dashes with regular dashes
-            let cleaned = text.replace(/—/g, '-');
+            // Replace em dashes with regular dashes and add spaces around them
+            // This regex finds em dashes and adds spaces around them when converting to regular dashes
+            let cleaned = text.replace(/([^\s])—([^\s])/g, '$1 - $2');
             
-            // Add spaces around dashes when there are none
-            // This regex finds dashes that don't have spaces on either side
-            cleaned = cleaned.replace(/([^\s])-([^\s])/g, '$1 - $2');
+            // Handle cases where em dash is at the beginning or end of a line
+            cleaned = cleaned.replace(/^—([^\s])/g, '- $1');
+            cleaned = cleaned.replace(/([^\s])—$/g, '$1 -');
             
-            // Handle cases where dash is at the beginning or end of a line
-            cleaned = cleaned.replace(/^-([^\s])/g, '- $1');
-            cleaned = cleaned.replace(/([^\s])-$/g, '$1 -');
+            // Handle cases where em dash already has spaces around it
+            cleaned = cleaned.replace(/ — /g, ' - ');
+            cleaned = cleaned.replace(/^— /g, '- ');
+            cleaned = cleaned.replace(/ —$/g, ' -');
+            
+            // Handle standalone em dashes (with spaces on both sides)
+            cleaned = cleaned.replace(/—/g, '-');
             
             return cleaned;
         }

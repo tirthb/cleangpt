@@ -5,7 +5,7 @@ A simple, browser-based text cleanup utility that helps format text by standardi
 ## Features
 
 - **Em Dash Replacement**: Converts em dashes (—) to regular dashes (-)
-- **Smart Spacing**: Automatically adds spaces around dashes when they're missing
+- **Smart Spacing**: Automatically adds spaces around em dashes when converting them to regular dashes
 - **Preserves Formatting**: Maintains existing spacing when already present
 - **Real-time Processing**: Text is cleaned automatically as you type
 - **Copy to Clipboard**: One-click copying of cleaned text
@@ -24,7 +24,7 @@ A simple, browser-based text cleanup utility that helps format text by standardi
 The tool performs the following text transformations:
 
 - **Em dash conversion**: `—` → `-`
-- **Adds spaces around dashes**: `word-word` → `word - word`
+- **Adds spaces around em dashes**: `word—word` → `word - word`
 - **Handles edge cases**: 
   - `-word` → `- word` (dash at beginning)
   - `word-` → `word -` (dash at end)
@@ -38,7 +38,7 @@ This is a test—with em dashes and word-word combinations.
 
 ### Output:
 ```
-This is a test-with em dashes and word - word combinations.
+This is a test - with em dashes and word-word combinations.
 ```
 
 ## Technical Details
